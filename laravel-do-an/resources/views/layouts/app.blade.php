@@ -65,14 +65,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('me') }}"
+                                    {{-- <a class="dropdown-item" href="{{ route('me') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('me-form').submit();">
                                         {{ __('Me') }}
-                                    </a>
-                                    <form id="me-form" action="{{ route('me') }}" method="POST" class="d-none">
+                                    </a> --}}
+                                    {{-- <form id="me-form" action="{{ route('me') }}" method="POST" class="d-none">
                                         @csrf
-                                    </form>
+                                    </form> --}}
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

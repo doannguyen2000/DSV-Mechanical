@@ -33,20 +33,25 @@
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_sidebar.html -->
-        @include('partial.sidebar')
-        <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
-            <!-- partial:partials/_navbar.html -->
-            @include('partial.header')
+        @if (empty(Auth::user()))
+            @yield('content')
+        @else
+            @include('partial.sidebar')
             <!-- partial -->
-            <div class="main-panel">
-                @yield('content')
-                <!-- partial:partials/_footer.html -->
-                @include('partial.footer')
+            <div class="container-fluid page-body-wrapper">
+                <!-- partial:partials/_navbar.html -->
+                @include('partial.header')
                 <!-- partial -->
+                <div class="main-panel">
+                    @yield('content')
+                    <!-- partial:partials/_footer.html -->
+                    @include('partial.footer')
+                    <!-- partial -->
+                </div>
+                <!-- content-wrapper ends -->
             </div>
-            <!-- content-wrapper ends -->
-        </div>
+        @endif
+
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
