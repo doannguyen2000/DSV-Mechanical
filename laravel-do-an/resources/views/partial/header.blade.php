@@ -1,8 +1,8 @@
    <!-- partial:partials/_navbar.html -->
    <nav class="navbar p-0 fixed-top d-flex flex-row">
        <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-           <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg"
-                   alt="logo" /></a>
+           <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img
+                   src="{{ asset('assets/images/logo-mini.svg') }}" alt="logo" /></a>
        </div>
        <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -33,7 +33,7 @@
                        <div class="dropdown-divider"></div>
                        <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">
-                               <img src="assets/images/faces/face4.jpg" alt="image"
+                               <img src="{{ asset('assets/images/faces/face4.jpg') }}" alt="image"
                                    class="rounded-circle profile-pic">
                            </div>
                            <div class="preview-item-content">
@@ -44,7 +44,7 @@
                        <div class="dropdown-divider"></div>
                        <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">
-                               <img src="assets/images/faces/face2.jpg" alt="image"
+                               <img src="{{ asset('assets/images/faces/face2.jpg') }}" alt="image"
                                    class="rounded-circle profile-pic">
                            </div>
                            <div class="preview-item-content">
@@ -55,7 +55,7 @@
                        <div class="dropdown-divider"></div>
                        <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">
-                               <img src="assets/images/faces/face3.jpg" alt="image"
+                               <img src="{{ asset('assets/images/faces/face3.jpg') }}" alt="image"
                                    class="rounded-circle profile-pic">
                            </div>
                            <div class="preview-item-content">
@@ -120,7 +120,11 @@
                <li class="nav-item dropdown">
                    <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                        <div class="navbar-profile">
-                           <img class="img-xs rounded-circle" src="assets/images/faces/face15.jpg" alt="">
+                           <img class="img-xs rounded-circle"
+                               @if (!empty(Auth::user()->avatar)) src="{{ url('/storage/user/avatar/' . Auth::user()->avatar->name) }}"
+                           @else
+                               src="{{ asset('assets/images/faces/face2.jpg') }}" @endif
+                               alt="">
                            <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ Auth::user()->name }}</p>
                            <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                        </div>
@@ -129,43 +133,55 @@
                        aria-labelledby="profileDropdown">
                        <h6 class="p-3 mb-0">Profile</h6>
                        <div class="dropdown-divider"></div>
-                       <a class="dropdown-item preview-item">
-                           <div class="preview-thumbnail">
-                               <div class="preview-icon bg-dark rounded-circle">
-                                   <i class="mdi mdi-settings text-success"></i>
-                               </div>
-                           </div>
-                           <div class="preview-item-content">
-                               <p class="preview-subject mb-1">Settings</p>
-                           </div>
-                       </a>
-                       <div class="dropdown-divider"></div>
                        <a class="dropdown-item preview-item"
-                           onclick="event.preventDefault();
-                       document.getElementById('logout-form').submit();">
+                           href="@if (Route::has('user.me')) {{ route('user.me') }}"> @endif 
                            <div class="preview-thumbnail">
-                               <div class="preview-icon bg-dark rounded-circle">
-                                   <i class="mdi mdi-logout text-danger"></i>
-                               </div>
+                           <div class="preview-icon bg-dark rounded-circle">
+                               <i class="mdi mdi-face-profile text-success"></i>
                            </div>
-                           <div class="preview-item-content">
-                               <p class="preview-subject mb-1">
-                                   {{ __('Logout') }}
-                               </p>
-                               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                   @csrf
-                               </form>
-                           </div>
-                       </a>
-                       <div class="dropdown-divider"></div>
-                       <p class="p-3 mb-0 text-center">Advanced settings</p>
                    </div>
-               </li>
-           </ul>
-           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-               data-toggle="offcanvas">
-               <span class="mdi mdi-format-line-spacing"></span>
-           </button>
+                   <div class="preview-item-content">
+                       <p class="preview-subject mb-1">Your Profile</p>
+                   </div>
+                   </a>
+                   <div class="dropdown-divider"></div>
+                   <a class="dropdown-item preview-item">
+                       <div class="preview-thumbnail">
+                           <div class="preview-icon bg-dark rounded-circle">
+                               <i class="mdi mdi-settings text-success"></i>
+                           </div>
+                       </div>
+                       <div class="preview-item-content">
+                           <p class="preview-subject mb-1">Settings</p>
+                       </div>
+                   </a>
+                   <div class="dropdown-divider"></div>
+                   <a class="dropdown-item preview-item"
+                       onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();">
+                       <div class="preview-thumbnail">
+                           <div class="preview-icon bg-dark rounded-circle">
+                               <i class="mdi mdi-logout text-danger"></i>
+                           </div>
+                       </div>
+                       <div class="preview-item-content">
+                           <p class="preview-subject mb-1">
+                               {{ __('Logout') }}
+                           </p>
+                           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                               @csrf
+                           </form>
+                       </div>
+                   </a>
+                   <div class="dropdown-divider"></div>
+                   <p class="p-3 mb-0 text-center">Advanced settings</p>
+       </div>
+       </li>
+       </ul>
+       <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+           data-toggle="offcanvas">
+           <span class="mdi mdi-format-line-spacing"></span>
+       </button>
        </div>
    </nav>
    <!-- partial -->

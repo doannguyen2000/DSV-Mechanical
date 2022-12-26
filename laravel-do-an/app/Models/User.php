@@ -18,10 +18,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
+        'date_of_birth',
+        'address',
+        'role',
+        'fullname',
+        'position',
+        'gender'
     ];
+
+    protected $with = ['avatar'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +50,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function avatar()
+    {
+        return $this->hasOne(Avatar::class, 'user_id', 'id');
+    }
 }
